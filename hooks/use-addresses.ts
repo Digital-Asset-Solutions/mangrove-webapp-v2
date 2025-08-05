@@ -20,6 +20,7 @@ import {
   blast,
   megaethTestnet,
   sei,
+  sepolia,
 } from "viem/chains"
 import { useDefaultChain } from "./use-default-chain"
 
@@ -37,6 +38,8 @@ export function useMangroveAddresses() {
       return baseMangrove
     case sei.id:
       return seiMangrove
+    case sepolia.id:
+      return sepoliaMangrove
     case megaethTestnet.id:
       return megaEthTestnetMangrove
     default:
@@ -54,6 +57,8 @@ export function useAaveKandelRouter() {
       return "0xb3be00f615239b8553D725dC9F418e27a874d4dC"
     case base.id:
       return ""
+    case sepolia.id:
+      return "" // no aave on sepolia
     case megaethTestnet.id:
       return ""
     default:
@@ -71,6 +76,8 @@ export function useAaveKandelSeeder() {
       return ""
     case sei.id:
       return ""
+    case sepolia.id:
+      return "" // no aave kandel seeder on sepolia
     case megaethTestnet.id:
       return ""
     default:
@@ -88,6 +95,8 @@ export function useKandelSeeder() {
       return ""
     case sei.id:
       return ""
+    case sepolia.id:
+      return "" // no kandel seeder on sepolia
     case megaethTestnet.id:
       return ""
     default:
@@ -107,6 +116,8 @@ export function useMarkets() {
       return megaEthTestnetMarkets
     case sei.id:
       return seiMarkets
+    case sepolia.id:
+      return sepoliaMarkets
     default:
       return baseMarkets
   }
@@ -143,6 +154,8 @@ export function useTokens() {
       return baseTokens
     case sei.id:
       return [SEIWSEI, SEIUSDC, SEIWETH, SEIWBTC]
+    case sepolia.id:
+      return [sepoliaWETH, sepoliaUSDC]
     case megaethTestnet.id:
       return [megaEthTestnetWETH, megaEthTestnetUSDC]
     default:
@@ -169,6 +182,11 @@ export function useCashnesses() {
         cbBTC: 2000,
         cbETH: 500,
         wstETH: 600,
+      }
+    case sepolia.id:
+      return {
+        USDC: 1e6,
+        WETH: 1000,
       }
     case megaethTestnet.id:
       return {
@@ -298,4 +316,42 @@ export const megaEthTestnetWETHUSDC = {
 
 export const megaEthTestnetMarkets = [
   megaEthTestnetWETHUSDC,
+] as const satisfies MarketParams[]
+
+// Sepolia
+
+export const sepoliaMangrove = {
+  mgv: "0x37a471853A4313F4b679Ab701a224E8D73D70946",
+  mgvOrder: "0x309A4e457adff1F05E32E3ad6f4B5213444C2B5c",
+  mgvReader: "0xc3980eE418112A36991FAD4c6E6caBf7dFFea8a2",
+  routerProxyFactory: "0x36961203E0D19357754A16963F31488D9EE8D9Ae",
+  smartRouter: "0x6DeD903b3674b6798e03E6ef552eD4A3F93d7f63",
+} as const satisfies MangroveActionsDefaultParams
+
+const sepoliaWETH = {
+  address: "0xAC394eB2014cF84d310EBA571e691b9Ea0808700",
+  symbol: "WETH",
+  decimals: 18,
+  displayDecimals: 3,
+  priceDisplayDecimals: 4,
+  mgvTestToken: false,
+} as const satisfies Token
+
+const sepoliaUSDC = {
+  address: "0x4350Ad5B77835c0e671D3ee920aBe6fd82d1dC37",
+  symbol: "USDC",
+  decimals: 6,
+  displayDecimals: 3,
+  priceDisplayDecimals: 4,
+  mgvTestToken: false,
+} as const satisfies Token
+
+export const sepoliaWETHUSDC = {
+  base: sepoliaWETH,
+  quote: sepoliaUSDC,
+  tickSpacing: 1n,
+} as const satisfies MarketParams
+
+export const sepoliaMarkets = [
+  sepoliaWETHUSDC,
 ] as const satisfies MarketParams[]

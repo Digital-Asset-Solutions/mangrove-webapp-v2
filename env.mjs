@@ -23,7 +23,7 @@ export const env = createEnv({
     // NEXT_PUBLIC_POSTHOG_HOST: z.string().url(),
     // NEXT_PUBLIC_MANGROVE_DATA_API_HOST: z.string().url(),
     // NEXT_PUBLIC_FEATURE_FLAG: z.string(),
-    // NEXT_PUBLIC_CLOUDFLARE_BEACON_TOKEN: z.string(),
+    // NEXT_PUBLIC_CLOUDFLARE_BEACON_TOKEN: z.string().optional(),
     // NEXT_PUBLIC_MAINNET_INDEXER_URL: z.string().url(),
     // NEXT_PUBLIC_TESTNET_INDEXER_URL: z.string().url(),
   },

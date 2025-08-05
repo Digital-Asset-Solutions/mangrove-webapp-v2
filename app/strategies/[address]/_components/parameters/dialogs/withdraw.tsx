@@ -45,7 +45,7 @@ export function Withdraw({ open, onClose }: Props) {
     offers: strategyQuery.data?.offers,
   })
 
-  let steps = ["Set", "Withdraw"]
+  const steps = ["Set", "Withdraw"]
 
   const [currentStep, helpers] = useStep(steps.length)
   const { goToNextStep, reset } = helpers

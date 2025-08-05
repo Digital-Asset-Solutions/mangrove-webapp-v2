@@ -45,7 +45,7 @@ export function UnPublish({ open, onClose }: Props) {
     offers: strategyQuery.data?.offers,
   })
 
-  let steps = ["Set", "Unpublish"]
+  const steps = ["Set", "Unpublish"]
   const [currentStep, helpers] = useStep(steps.length)
   const { goToNextStep, reset } = helpers
 

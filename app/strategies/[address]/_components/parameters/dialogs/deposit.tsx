@@ -38,7 +38,7 @@ export function Deposit({ togglePublish, open, onClose }: Props) {
     offers: strategyQuery.data?.offers,
   })
 
-  let steps = ["Set", "Deposit"]
+  const steps = ["Set", "Deposit"]
   const [currentStep, helpers] = useStep(steps.length)
   const { goToNextStep, reset } = helpers
 

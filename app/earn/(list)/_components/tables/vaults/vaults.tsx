@@ -62,7 +62,7 @@ export function Vaults() {
       )
       const data = await response.json()
 
-      let vaults = defaultData
+      const vaults = defaultData
 
       data.forEach((item: any) => {
         const vault = vaults.find(

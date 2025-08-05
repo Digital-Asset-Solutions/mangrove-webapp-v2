@@ -22,7 +22,7 @@ export const env = createEnv({
     // NEXT_PUBLIC_POSTHOG_KEY: z.string(),
     // NEXT_PUBLIC_POSTHOG_HOST: z.string().url(),
     // NEXT_PUBLIC_MANGROVE_DATA_API_HOST: z.string().url(),
-    // NEXT_PUBLIC_FEATURE_FLAG: z.string(),
+    NEXT_PUBLIC_FEATURE_FLAG: z.string().optional(),
     // NEXT_PUBLIC_CLOUDFLARE_BEACON_TOKEN: z.string().optional(),
     // NEXT_PUBLIC_MAINNET_INDEXER_URL: z.string().url(),
     // NEXT_PUBLIC_TESTNET_INDEXER_URL: z.string().url(),
@@ -44,7 +44,7 @@ export const env = createEnv({
     // NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
     // NEXT_PUBLIC_MANGROVE_DATA_API_HOST:
     //   process.env.NEXT_PUBLIC_MANGROVE_DATA_API_HOST,
-    // NEXT_PUBLIC_FEATURE_FLAG: process.env.NEXT_PUBLIC_FEATURE_FLAG,
+    NEXT_PUBLIC_FEATURE_FLAG: process.env.NEXT_PUBLIC_FEATURE_FLAG,
     // NEXT_PUBLIC_MAINNET_INDEXER_URL:
     //   process.env.NEXT_PUBLIC_MAINNET_INDEXER_URL,
     // NEXT_PUBLIC_TESTNET_INDEXER_URL:

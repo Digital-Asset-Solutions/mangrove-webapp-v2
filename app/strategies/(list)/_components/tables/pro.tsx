@@ -71,7 +71,7 @@ export function Pro({
             </SelectTrigger>
             <SelectContent>
               {Object.values(SortValues).map((item, i) => (
-                <SelectItem value={item}>
+                <SelectItem key={`${item}-${i}`} value={item}>
                   <div className="flex items-center space-x-2">{item}</div>
                 </SelectItem>
               ))}

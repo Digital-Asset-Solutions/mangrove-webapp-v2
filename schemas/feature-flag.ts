@@ -13,9 +13,15 @@ type FeatureFlagConfig = z.infer<typeof schema>
 
 export function getFeatureFlagConfig(): FeatureFlagConfig | undefined {
   try {
+    // Check if the environment variable exists
+    if (!env.NEXT_PUBLIC_FEATURE_FLAG) {
+      return undefined
+    }
+
     const config = stringToJSONSchema.parse(env.NEXT_PUBLIC_FEATURE_FLAG)
     return schema.parse(config)
   } catch (e) {
     console.error(getErrorMessage(e))
+    return undefined
   }
 }

@@ -76,7 +76,7 @@ export default function EditStrategyDialog({
   const { mutate: editKandelStrategy, isPending: isEditingKandelStrategy } =
     useEditKandelStrategy(kandelClient)
 
-  let steps = [
+  const steps = [
     "Summary",
     !baseApprove?.done ? `Approve ${baseToken?.symbol}` : "",
     !quoteApprove?.done ? `Approve ${quoteToken?.symbol}` : "",

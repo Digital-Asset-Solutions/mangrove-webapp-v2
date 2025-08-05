@@ -49,7 +49,7 @@ export default function useStrategyStatus({
 
         const book = await kandelClient?.getBook({})
 
-        let midPrice = Number(book?.midPrice ?? 0)
+        const midPrice = Number(book?.midPrice ?? 0)
 
         const kandelInstance = client?.extend(
           kandelActions(
@@ -69,8 +69,8 @@ export default function useStrategyStatus({
         const maxPrice = Math.max(...offersStatuses.map((item) => item.price))
         const minPrice = Math.min(...offersStatuses.map((item) => item.price))
 
-        let isOutOfRange = midPrice > maxPrice || midPrice < minPrice
-        let hasLiveOffers = offersStatuses.some((x) => x.gives > 0)
+        const isOutOfRange = midPrice > maxPrice || midPrice < minPrice
+        const hasLiveOffers = offersStatuses.some((x) => x.gives > 0)
         let status: Status = "unknown"
 
         if (isOutOfRange) {

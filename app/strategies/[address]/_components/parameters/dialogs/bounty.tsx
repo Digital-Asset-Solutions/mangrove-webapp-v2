@@ -38,7 +38,7 @@ export function Bounty({ open, onClose }: Props) {
     offers: strategyQuery.data?.offers,
   })
 
-  let steps = ["Set", "Add Bounty"]
+  const steps = ["Set", "Add Bounty"]
   const [currentStep, helpers] = useStep(steps.length)
   const { goToNextStep, reset } = helpers
 

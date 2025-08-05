@@ -158,7 +158,7 @@ export const useLeaderboard = <T = LeaderboardEntry[]>({
         const start = (pageParam as number) * pageSize
         const end = start + pageSize - 1 // Subtract 1 to make room for the user entry
 
-        let pageData = [userEntry, ...leaderboardWithoutUser.slice(start, end)]
+        const pageData = [userEntry, ...leaderboardWithoutUser.slice(start, end)]
 
         return {
           data: pageData,

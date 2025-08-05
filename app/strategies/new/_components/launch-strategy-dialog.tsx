@@ -69,7 +69,7 @@ export default function DeployStrategyDialog({
   const approveToken = useInfiniteApproveToken()
   const launchKandelStrategy = useLaunchKandelStrategy(data?.kandelAddress)
 
-  let steps = [
+  const steps = [
     "Summary",
     "Create strategy instance",
     !baseApprove?.done ? `Approve ${baseToken?.symbol}` : "",

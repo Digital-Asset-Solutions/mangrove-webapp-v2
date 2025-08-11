@@ -21,6 +21,7 @@ import {
   megaethTestnet,
   sei,
   sepolia,
+  somniaTestnet,
 } from "viem/chains"
 import { useDefaultChain } from "./use-default-chain"
 
@@ -42,6 +43,8 @@ export function useMangroveAddresses() {
       return sepoliaMangrove
     case megaethTestnet.id:
       return megaEthTestnetMangrove
+    case somniaTestnet.id:
+      return somniaMangrove
     default:
       return arbitrumMangrove
   }
@@ -60,6 +63,8 @@ export function useAaveKandelRouter() {
     case sepolia.id:
       return "" // no aave on sepolia
     case megaethTestnet.id:
+      return ""
+    case somniaTestnet.id:
       return ""
     default:
       return undefined
@@ -80,6 +85,8 @@ export function useAaveKandelSeeder() {
       return "" // no aave kandel seeder on sepolia
     case megaethTestnet.id:
       return ""
+    case somniaTestnet.id:
+      return ""
     default:
       return undefined
   }
@@ -98,6 +105,8 @@ export function useKandelSeeder() {
     case sepolia.id:
       return "" // no kandel seeder on sepolia
     case megaethTestnet.id:
+      return ""
+    case somniaTestnet.id:
       return ""
     default:
       return undefined
@@ -118,6 +127,8 @@ export function useMarkets() {
       return seiMarkets
     case sepolia.id:
       return sepoliaMarkets
+    case somniaTestnet.id:
+      return somniaMarkets
     default:
       return baseMarkets
   }
@@ -158,6 +169,8 @@ export function useTokens() {
       return [sepoliaWETH, sepoliaUSDC]
     case megaethTestnet.id:
       return [megaEthTestnetWETH, megaEthTestnetUSDC]
+    case somniaTestnet.id:
+      return [somniaWETH, somniaUSDC]
     default:
       return baseTokens
   }
@@ -189,6 +202,11 @@ export function useCashnesses() {
         WETH: 1000,
       }
     case megaethTestnet.id:
+      return {
+        USDC: 1e6,
+        WETH: 1000,
+      }
+    case somniaTestnet.id:
       return {
         USDC: 1e6,
         WETH: 1000,
@@ -355,3 +373,74 @@ export const sepoliaWETHUSDC = {
 export const sepoliaMarkets = [
   sepoliaWETHUSDC,
 ] as const satisfies MarketParams[]
+
+// Eden
+
+export const edenMangrove = {
+  mgv: "0x9c7f89b2C425049Ca9Eb0513eF334f55BF7f64c9",
+  mgvReader: "0x4350Ad5B77835c0e671D3ee920aBe6fd82d1dC37",
+  mgvOrder: "0x309A4e457adff1F05E32E3ad6f4B5213444C2B5c", // sepolia
+  routerProxyFactory: "0x36961203E0D19357754A16963F31488D9EE8D9Ae", // sepolia
+  smartRouter: "0x6DeD903b3674b6798e03E6ef552eD4A3F93d7f63", // sepolia
+} as const satisfies MangroveActionsDefaultParams
+
+const edenWETH = {
+  address: "0xAC394eB2014cF84d310EBA571e691b9Ea0808700",
+  symbol: "WETH",
+  decimals: 18,
+  displayDecimals: 3,
+  priceDisplayDecimals: 4,
+  mgvTestToken: false,
+} as const satisfies Token
+
+const edenUSDC = {
+  address: "0x4350Ad5B77835c0e671D3ee920aBe6fd82d1dC37",
+  symbol: "USDC",
+  decimals: 6,
+  displayDecimals: 3,
+  priceDisplayDecimals: 4,
+  mgvTestToken: false,
+} as const satisfies Token
+
+export const edenWETHUSDC = {
+  base: edenWETH,
+  quote: edenUSDC,
+  tickSpacing: 1n,
+} as const satisfies MarketParams
+
+export const edenMarkets = [edenWETHUSDC] as const satisfies MarketParams[]
+
+// Somnia
+export const somniaMangrove = {
+  mgv: "0x13d30dF7e872660fDd5293BEe39EBd7a61C4C622",
+  mgvReader: "0xe3dbF8bAB1c5D4B3386Fc05e207Bd8f91552ACc0",
+  mgvOrder: "0x6b3E0f24824be981e892ca719A16714bfd2D0Ac2",
+  routerProxyFactory: "0xE82C7B1Cb8C59088Fe196E01746a930E2b168ee8",
+  smartRouter: "0x94a07fb6e0d900c57b0a56cb30a5058aff7ddd6b",
+} as const satisfies MangroveActionsDefaultParams
+
+const somniaWETH = {
+  address: "0x1098009Dd154092943e167536df2467479c6CBeE",
+  symbol: "WETH",
+  decimals: 18,
+  displayDecimals: 3,
+  priceDisplayDecimals: 4,
+  mgvTestToken: false,
+} as const satisfies Token
+
+const somniaUSDC = {
+  address: "0x309A4e457adff1F05E32E3ad6f4B5213444C2B5c",
+  symbol: "USDC",
+  decimals: 6,
+  displayDecimals: 3,
+  priceDisplayDecimals: 4,
+  mgvTestToken: false,
+} as const satisfies Token
+
+export const somniaWETHUSDC = {
+  base: somniaWETH,
+  quote: somniaUSDC,
+  tickSpacing: 1n,
+} as const satisfies MarketParams
+
+export const somniaMarkets = [somniaWETHUSDC] as const satisfies MarketParams[]

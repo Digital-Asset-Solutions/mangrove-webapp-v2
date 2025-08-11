@@ -1,6 +1,6 @@
 // utils/get-indexer-url.ts
 import { Chain } from "viem"
-import { arbitrum, base, megaethTestnet, sei, sepolia } from "viem/chains"
+import { arbitrum, base, megaethTestnet, sei, sepolia, somniaTestnet } from "viem/chains"
 
 export function getIndexerUrl(chain?: Chain | null): string {
   switch (chain?.id) {
@@ -14,6 +14,8 @@ export function getIndexerUrl(chain?: Chain | null): string {
       return "https://indexer-arbitrum.mgvinfra.com"
     case sepolia.id:
       return "https://sepolia-mangrove.up.railway.app"
+    case somniaTestnet.id:
+      return "https://mangrove-indexer-somnia-production.up.railway.app"
     default:
       return "https://indexer.mgvinfra.com"
   }

@@ -3,7 +3,7 @@
 ## Env vars
 
 This web app supports the following env vars:
-
+ 
 | Env var                               | Description                                                                           |
 | ------------------------------------- | ------------------------------------------------------------------------------------- |
 | NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID | The `project_id` to setup the [Walletconnect](https://walletconnect.com/) user wallet |

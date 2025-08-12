@@ -13,7 +13,7 @@ export function getIndexerUrl(chain?: Chain | null): string {
     case arbitrum.id:
       return "https://indexer-arbitrum.mgvinfra.com"
     case sepolia.id:
-      return "https://sepolia-mangrove.up.railway.app"
+      return "https://mangrove-indexer-sepolia-production.up.railway.app"
     case somniaTestnet.id:
       return "https://mangrove-indexer-somnia-production.up.railway.app"
     default:

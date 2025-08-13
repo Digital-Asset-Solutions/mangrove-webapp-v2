@@ -7,13 +7,11 @@ import { useLogics, useMangroveAddresses } from "@/hooks/use-addresses"
 import { useBook } from "@/hooks/use-book"
 import { useMarketClient } from "@/hooks/use-market"
 import { useLoadingStore } from "@/stores/loading.store"
-import {
-  getDefaultLimitOrderGasreq,
-  limitOrderResultFromLogs,
-} from "@mangrovedao/mgv"
+import { limitOrderResultFromLogs } from "@mangrovedao/mgv"
 
 import { useNetworkClient } from "@/hooks/use-network-client"
 import { printEvmError } from "@/utils/errors"
+import { getCustomDefaultLimitOrderGasreq } from "@/utils/gas-utils"
 import { BS } from "@mangrovedao/mgv/lib"
 import { toast } from "sonner"
 import { megaethTestnet } from "viem/chains"
@@ -74,7 +72,9 @@ export function usePostLimitOrder() {
           (item) => item.name === receiveTo,
         )?.logic
 
-        const restingOrderGasreq = getDefaultLimitOrderGasreq()
+        const restingOrderGasreq = form.restingOrderGasreq
+          ? BigInt(form.restingOrderGasreq)
+          : getCustomDefaultLimitOrderGasreq()
 
         const baseAmount =
           bs === "buy"

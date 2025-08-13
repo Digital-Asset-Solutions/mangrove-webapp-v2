@@ -21,3 +21,8 @@ export const sendVolumeValidator = (
     .number()
     .lte(balance, FIELD_ERRORS.insufficientBalance)
     .gte(volume, `${FIELD_ERRORS.minVolume} ${volume} ${symbol}`)
+
+export const gasRequirementValidator = z.coerce
+  .number()
+  .gte(0, "Gas requirement must be 0 or greater")
+  .optional()

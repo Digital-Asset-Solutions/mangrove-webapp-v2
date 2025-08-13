@@ -12,4 +12,5 @@ export type Form = {
   sendFrom: string
   receiveTo: string
   isWrapping: boolean
+  restingOrderGasreq?: string
 }

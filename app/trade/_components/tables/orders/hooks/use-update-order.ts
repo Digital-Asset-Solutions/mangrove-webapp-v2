@@ -7,6 +7,7 @@ import { useMarketClient } from "@/hooks/use-market"
 import useMarket from "@/providers/market"
 import { useLoadingStore } from "@/stores/loading.store"
 import { printEvmError } from "@/utils/errors"
+import { getCustomDefaultUpdateOrderGasreq } from "@/utils/gas-utils"
 import { BS } from "@mangrovedao/mgv/lib"
 import { parseUnits } from "viem"
 import { useAccount, usePublicClient, useWalletClient } from "wagmi"
@@ -59,7 +60,7 @@ export function useUpdateOrder({ offerId, onResult }: useUpdateOrderProps) {
             : parseUnits(receive, currentMarket?.quote.decimals || 18),
           bs: isBid ? BS.buy : BS.sell,
           book: book,
-          restingOrderGasreq: 250_000n,
+          restingOrderGasreq: getCustomDefaultUpdateOrderGasreq(),
           account: address,
         })
 

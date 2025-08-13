@@ -22,6 +22,7 @@ export default function EmbedPriceChart({ className }: PriceChartProps) {
       42161: "arbitrum", // Arbitrum
       8453: "base", // Base
       6342: "MegaETH Testnet", // MegaETH Testnet
+      
     }
 
     return chainMap[defaultChain.id] || "base" // Default to Base if not found

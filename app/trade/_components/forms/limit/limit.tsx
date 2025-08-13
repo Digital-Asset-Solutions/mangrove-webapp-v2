@@ -1,7 +1,7 @@
 import { BS } from "@mangrovedao/mgv/lib"
 import { motion } from "framer-motion"
-import { ArrowDown } from "lucide-react"
-import React, { useEffect, useRef } from "react"
+import { ArrowDown, Settings } from "lucide-react"
+import React, { useEffect, useRef, useState } from "react"
 import { Address, formatUnits, parseUnits } from "viem"
 import { useAccount } from "wagmi"
 
@@ -21,6 +21,7 @@ import { useLimit } from "./hooks/use-limit"
 import { useLimitTransaction } from "./hooks/use-limit-transaction"
 import type { Form } from "./types"
 import {
+  gasRequirementValidator,
   isGreaterThanZeroValidator,
   sendValidator,
   sendVolumeValidator,
@@ -39,6 +40,7 @@ export function Limit() {
   const { isConnected } = useAccount()
   const [formData, setFormData] = React.useState<Form>()
   const [sendSliderValue, setSendSliderValue] = React.useState(0)
+  const [isAdvancedMode, setIsAdvancedMode] = useState(false)
 
   // Get and set shared state
   const { payAmount, setPayAmount, tradeSide, setTradeSide } =
@@ -495,9 +497,19 @@ export function Limit() {
 
             <div className="grid space-y-2">
               <div className="flex justify-between">
-                <span className="text-muted-foreground text-xs font-sans">
-                  Minimum volume
-                </span>
+                <div className="flex items-center gap-1">
+                  <span className="text-muted-foreground text-xs font-sans">
+                    Minimum volume
+                  </span>
+                  {!isAdvancedMode && (
+                    <InfoTooltip className="text-text-quaternary text-xs size-3 cursor-pointer">
+                      <span className="text-xs font-sans">
+                        Based on default gas requirement (2M). Enable advanced
+                        mode to customize.
+                      </span>
+                    </InfoTooltip>
+                  )}
+                </div>
                 {Number(minVolumeFormatted) == 0 ? (
                   <Skeleton className="w-16 h-4" />
                 ) : (
@@ -509,6 +521,101 @@ export function Limit() {
                   </span>
                 )}
               </div>
+
+              {/* Advanced Mode Toggle */}
+              <div
+                className={cn(
+                  "flex justify-between items-center p-2 rounded border transition-colors",
+                  isAdvancedMode
+                    ? "border-border-secondary bg-bg-secondary/20"
+                    : "border-transparent",
+                )}
+              >
+                <div className="flex items-center gap-2">
+                  <Settings
+                    className={cn(
+                      "h-3 w-3 transition-colors",
+                      isAdvancedMode
+                        ? "text-text-primary"
+                        : "text-muted-foreground",
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "text-xs font-sans transition-colors",
+                      isAdvancedMode
+                        ? "text-text-primary"
+                        : "text-muted-foreground",
+                    )}
+                  >
+                    Advanced mode
+                  </span>
+                  <InfoTooltip className="text-text-quaternary text-xs size-4 cursor-pointer">
+                    <span className="text-xs font-sans">
+                      Enable advanced parameters for experienced users
+                    </span>
+                  </InfoTooltip>
+                </div>
+                <Switch
+                  className="data-[state=checked]:!bg-bg-secondary data-[state=checked]:text-text-primary h-4 w-8 !bg-bg-secondary"
+                  checked={isAdvancedMode}
+                  onClick={() => setIsAdvancedMode(!isAdvancedMode)}
+                />
+              </div>
+
+              {/* Gas Requirement Field - Only shown in advanced mode */}
+              <motion.div
+                initial={false}
+                animate={{
+                  height: isAdvancedMode ? "auto" : 0,
+                  opacity: isAdvancedMode ? 1 : 0,
+                }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+                className="overflow-hidden"
+              >
+                {isAdvancedMode && (
+                  <form.Field
+                    name="restingOrderGasreq"
+                    onChange={gasRequirementValidator}
+                  >
+                    {(field) => (
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center gap-1">
+                          <span className="text-muted-foreground text-xs font-sans">
+                            Gas requirement
+                          </span>
+                          <InfoTooltip className="text-text-quaternary text-xs size-4 cursor-pointer">
+                            <span className="text-xs font-sans">
+                              Gas requirement for the resting order. Higher
+                              values may increase the minimum volume required.
+                            </span>
+                          </InfoTooltip>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="number"
+                            value={field.state.value || ""}
+                            onChange={(e) => field.handleChange(e.target.value)}
+                            onBlur={field.handleBlur}
+                            className="w-20 h-6 text-xs bg-bg-secondary border border-border-primary rounded px-2 text-text-primary"
+                            placeholder="Gas"
+                            min="0"
+                            step="1000"
+                          />
+                          <span className="text-xs text-text-secondary">
+                            gas
+                          </span>
+                        </div>
+                        {field.state.meta.errors && (
+                          <span className="text-xs text-red-500">
+                            {field.state.meta.errors.join(", ")}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </form.Field>
+                )}
+              </motion.div>
             </div>
           </div>
 

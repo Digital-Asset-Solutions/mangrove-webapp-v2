@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client"
-import { BS, getDefaultLimitOrderGasreq, minVolume } from "@mangrovedao/mgv/lib"
+import { BS, minVolume } from "@mangrovedao/mgv/lib"
 import { useForm } from "@tanstack/react-form"
 import { zodValidator } from "@tanstack/zod-form-adapter"
 import React from "react"
@@ -12,6 +12,7 @@ import { useMergedBooks } from "@/hooks/new_ghostbook/book"
 import { useTokenLogics } from "@/hooks/use-balances"
 import { useBook } from "@/hooks/use-book"
 import useMarket from "@/providers/market"
+import { getCustomDefaultLimitOrderGasreq } from "@/utils/gas-utils"
 import { getExactWeiAmount } from "@/utils/regexp"
 import { useTradeBalances } from "../../hooks/use-trade-balances"
 import { TimeInForce, TimeToLiveUnit } from "../enums"
@@ -45,6 +46,7 @@ export function useLimit(props: Props) {
       timeInForce: TimeInForce.GTC,
       timeToLive: "28",
       timeToLiveUnit: TimeToLiveUnit.DAY,
+      restingOrderGasreq: getCustomDefaultLimitOrderGasreq().toString(),
     },
     onSubmit: (values) => props.onSubmit(values),
   })
@@ -97,7 +99,7 @@ export function useLimit(props: Props) {
         isFinite(Number(state.values.receive))
 
       const sendAmount = parseUnits(
-        sendIsValid ? state.values.send ?? 0 : "0",
+        sendIsValid ? (state.values.send ?? 0) : "0",
         sendToken?.decimals || 18,
       )
       const receiveAmount = parseUnits(
@@ -116,7 +118,10 @@ export function useLimit(props: Props) {
     Math.max(
       Number(sendFrom?.logic.gasreq || 0),
       Number(receiveTo?.logic.gasreq || 0),
-      Number(getDefaultLimitOrderGasreq()),
+      Number(
+        form.getFieldValue("restingOrderGasreq") ||
+          getCustomDefaultLimitOrderGasreq(),
+      ),
     ),
   )
 

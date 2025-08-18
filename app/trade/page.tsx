@@ -77,11 +77,14 @@ export default function Page() {
                   <div className="flex gap-1 h-full">
                     {/* Chart Section */}
                     <div className="flex-[4] rounded-sm overflow-hidden border border-bg-secondary">
-                      {defaultChain.testnet || !pool ? (
+                      {/* {defaultChain.testnet || !pool ? (
                         <OHLCVChart />
                       ) : (
                         <EmbedPriceChart />
-                      )}
+                      )} */}
+                      <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                        Chart temporarily disabled
+                      </div>
                     </div>
 
                     {/* Order Book Section */}

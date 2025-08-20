@@ -10,7 +10,7 @@ import useMarket from "@/providers/market"
 import { useLoadingStore } from "@/stores/loading.store"
 import { toast } from "sonner"
 import { parseUnits } from "viem"
-import { megaethTestnet } from "viem/chains"
+import { megaethTestnet, somniaTestnet } from "viem/chains"
 import { TradeMode } from "../../enums"
 import { successToast } from "../../utils"
 import type { Form } from "../types"
@@ -71,7 +71,9 @@ export function usePostMarketOrderMangrove({ onResult }: Props = {}) {
             gas:
               marketClient.chain?.id === megaethTestnet.id
                 ? 10_000_000n
-                : 20_000_000n,
+                : marketClient.chain?.id === somniaTestnet.id
+                  ? 60_000_000n
+                  : 20_000_000n,
             account: address,
           })
 

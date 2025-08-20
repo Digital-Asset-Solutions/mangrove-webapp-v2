@@ -9,6 +9,7 @@ import { getChainObjectById } from "@/utils/chains"
 import { Button } from "./ui/button"
 import { XClose } from "./ui/dialog"
 import { ImageWithHideOnError } from "./ui/image-with-hide-on-error"
+import { eden } from "@/utils/edenChain"
 
 function getIconFromChainlist(name: string) {
   let icon = name
@@ -80,7 +81,7 @@ export default function ChainSelector() {
                   width={28}
                   height={28}
                 />
-                <span>{name}</span>
+                <span>{id === eden.id ? "Eden Testnet" : name}</span>
               </Button>
             </div>
           ))}

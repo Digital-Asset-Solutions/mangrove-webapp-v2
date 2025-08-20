@@ -27,6 +27,7 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { WagmiProvider, createConfig, http } from "wagmi"
 import { arbitrum, base, megaethTestnet, sei, sepolia, somniaTestnet } from "wagmi/chains"
+import { eden } from "@/utils/edenChain"
 
 import { createFallbackTransport } from "@/config/fallback-transport"
 import { env } from "@/env.mjs"
@@ -74,13 +75,14 @@ const connectors = connectorsForWallets(recommendedWalletList, {
 export const config = createConfig({
   ssr: true,
   connectors,
-  chains: [arbitrum, base, megaethTestnet, sei, sepolia, somniaTestnet],
+  chains: [arbitrum, base, megaethTestnet, sei, sepolia, somniaTestnet, eden],
   transports: {
     [sei.id]: http(),
     [arbitrum.id]: http(),
     [megaethTestnet.id]: http(),
     [sepolia.id]: http(),
     [somniaTestnet.id]: http(),
+    [eden.id]: http(),
     [base.id]: createFallbackTransport(base, true),
   },
 })

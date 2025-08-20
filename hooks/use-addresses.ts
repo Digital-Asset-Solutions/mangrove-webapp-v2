@@ -24,6 +24,7 @@ import {
   somniaTestnet,
 } from "viem/chains"
 import { useDefaultChain } from "./use-default-chain"
+import { eden } from "@/utils/edenChain"
 
 export const aaveKandelSeeder = "0x55B12De431C6e355b56b79472a3632faec58FB5a"
 
@@ -45,6 +46,8 @@ export function useMangroveAddresses() {
       return megaEthTestnetMangrove
     case somniaTestnet.id:
       return somniaMangrove
+    case eden.id:
+      return edenMangrove
     default:
       return arbitrumMangrove
   }
@@ -65,6 +68,8 @@ export function useAaveKandelRouter() {
     case megaethTestnet.id:
       return ""
     case somniaTestnet.id:
+      return ""
+    case eden.id:
       return ""
     default:
       return undefined
@@ -87,6 +92,8 @@ export function useAaveKandelSeeder() {
       return ""
     case somniaTestnet.id:
       return ""
+    case eden.id:
+      return ""
     default:
       return undefined
   }
@@ -107,6 +114,8 @@ export function useKandelSeeder() {
     case megaethTestnet.id:
       return ""
     case somniaTestnet.id:
+      return "0x1021231D59D7188aC80bDc0914C9199939cB62eB"
+    case eden.id:
       return ""
     default:
       return undefined
@@ -129,6 +138,8 @@ export function useMarkets() {
       return sepoliaMarkets
     case somniaTestnet.id:
       return somniaMarkets
+    case eden.id:
+      return edenMarkets
     default:
       return baseMarkets
   }
@@ -171,6 +182,8 @@ export function useTokens() {
       return [megaEthTestnetWETH, megaEthTestnetUSDC]
     case somniaTestnet.id:
       return [somniaWETH, somniaUSDC]
+    case eden.id:
+      return [edenWETH, edenUSDC]
     default:
       return baseTokens
   }
@@ -207,6 +220,11 @@ export function useCashnesses() {
         WETH: 1000,
       }
     case somniaTestnet.id:
+      return {
+        USDC: 1e6,
+        WETH: 1000,
+      }
+    case eden.id:
       return {
         USDC: 1e6,
         WETH: 1000,
@@ -379,13 +397,13 @@ export const sepoliaMarkets = [
 export const edenMangrove = {
   mgv: "0x9c7f89b2C425049Ca9Eb0513eF334f55BF7f64c9",
   mgvReader: "0x4350Ad5B77835c0e671D3ee920aBe6fd82d1dC37",
-  mgvOrder: "0x309A4e457adff1F05E32E3ad6f4B5213444C2B5c", // sepolia
-  routerProxyFactory: "0x36961203E0D19357754A16963F31488D9EE8D9Ae", // sepolia
-  smartRouter: "0x6DeD903b3674b6798e03E6ef552eD4A3F93d7f63", // sepolia
+  mgvOrder: "0x3De1210EE7DCAae523c01c19685a91fD52585c38",
+  routerProxyFactory: "0xF6DDc87f86fC40EC00b9136ab9b514e735E7620c",
+  smartRouter: "0x9F47c6563c16111c944e8Fa7A7372C4F6c310a4c",
 } as const satisfies MangroveActionsDefaultParams
 
 const edenWETH = {
-  address: "0xAC394eB2014cF84d310EBA571e691b9Ea0808700",
+  address: "0xbA207113AAFbd1805786a953177eCdE780e5BbAB",
   symbol: "WETH",
   decimals: 18,
   displayDecimals: 3,
@@ -394,7 +412,7 @@ const edenWETH = {
 } as const satisfies Token
 
 const edenUSDC = {
-  address: "0x4350Ad5B77835c0e671D3ee920aBe6fd82d1dC37",
+  address: "0xF8e5aD1507f6b7e1637b4d20c115b470D48C582E",
   symbol: "USDC",
   decimals: 6,
   displayDecimals: 3,
